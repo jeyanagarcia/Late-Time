@@ -10,6 +10,7 @@ namespace LateHours
         {
             String employeeId = "";
             String employeePass = "";
+            TimeSpan checking = new TimeSpan(0, 0, 0);
             TimeSpan timeOut = new TimeSpan(0, 0, 0);
             TimeSpan gracePeriod = new TimeSpan(8, 30, 0);
             TimeSpan totalHours = new TimeSpan(0, 0, 0);
@@ -39,7 +40,7 @@ namespace LateHours
 
                     timeIn = new TimeSpan(8, 30, 0);
 
-                    Console.WriteLine("Log In Successfully");
+                    Console.WriteLine($"Time In Successfully: {timeIn} ");
                     Console.WriteLine("\n \n \n");
                     Main(args);
                     break;
@@ -70,12 +71,18 @@ namespace LateHours
                                 Console.WriteLine($"Hi employee {employeeId}");
                                 Console.WriteLine($"Your total late hours is: {totalLateHours}");
                             }
-                            else
+                            else if (timeIn == checking)
                             {
                                 Console.WriteLine("Please time in first.");
                                 Console.WriteLine("\n \n \n");
                                 Main(args);
                             }
+                            else if (timeIn < gracePeriod)
+                            {
+                                Console.WriteLine($"Hi employee {employeeId}");
+                                Console.WriteLine("You're not late.");
+                            }
+                           
                         }
                         else
                         {
